@@ -1,2 +1,10 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+    <div class="cute-pink-style">
+        <h1>オフィスのどうぶつ日誌へようこそ！</h1>
+        <p>ここは、日々の「報告」と「気軽なつぶやき」でチームをもっと元気に、もっと楽しくするアプリです。</p>
+        <p>投稿するたびに、かわいい動物たちがあなたの頑張りを褒めてくれますよ！</p>
+        <% # 将来的にはここにログインフォームやログインページへのリンクを置きます %>
+        <%= link_to "このアプリについて", about_path, class: "btn btn-secondary" %>
+    </div>
+
+</div>
