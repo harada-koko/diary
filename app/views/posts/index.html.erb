@@ -1,0 +1,33 @@
+<h1>タイムライン</h1>
+
+<p>
+  <%# ログインしている場合にのみ「新規投稿」ボタンを表示 %>
+  <% if user_signed_in? %>
+    <%= link_to "新しい投稿を作成する", new_post_path %>
+  <% end %>
+</p>
+
+<hr>
+
+<%# 投稿があるかどうかで表示を切り替える %>
+<% if @posts.any? %>
+  <%# 投稿がある場合、ループで一つずつ表示 %>
+  <% @posts.each do |post| %>
+    <div class="post">
+      <p>
+        <strong><%= post.user.name %></strong>
+        <span style="color: #888; font-size: 0.9em;">
+          <%= time_ago_in_words(post.created_at) %>前
+        </span>
+      </p>
+      <p>
+        <%# simple_formatを使うと、改行が正しく表示される %>
+        <%= simple_format(post.content) %>
+      </p>
+    </div>
+    <hr>
+  <% end %>
+<% else %>
+  <%# 投稿がまだない場合 %>
+  <p>まだ投稿がありません。最初の投稿をしてみましょう！</p>
+<% end %>
