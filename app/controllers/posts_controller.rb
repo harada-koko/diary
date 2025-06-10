@@ -25,4 +25,30 @@ class PostsController < ApplicationController
     params.require(:post).permit(:content, :post_type)
   end
 
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to post_path(@post), notice: "投稿が更新されました！"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    if @post.destroy
+      redirect_to timeline_path, notice: "投稿が削除されました！"
+    else
+      redirect_to post_path(@post), alert: "投稿の削除に失敗しました。"
+    end
+  end
+
 end
