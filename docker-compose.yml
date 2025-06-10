@@ -1,11 +1,15 @@
+# docker-compose.yml の全体をこの内容に置き換えてください
+
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
-      args: # ← このargsセクションを追加
-        UID: "${UID}"
-        GID: "${GID}"
+      # build.args はDockerfileでユーザーを作成する場合に必要ですが、
+      # 最新のDockerfileで固定ユーザーを作成する方法にしたので、一旦コメントアウトします。
+      # args: 
+      #   UID: "${UID}"
+      #   GID: "${GID}"
     command: "./bin/rails server -b 0.0.0.0"
     volumes:
       - .:/rails
@@ -13,4 +17,21 @@ services:
       - "3000:3000"
     environment:
       - RAILS_ENV=development
-    user: root
+    # user: root の行は、Dockerfileでユーザーを指定しているので不要です。削除しました。
+    depends_on: # ← dbサービスが起動してからwebサービスが起動するようにする設定
+      - db
+
+  # --- ここからが、まるごと抜けていたdbサービスの設定です ---
+  db:
+    image: postgres:15 # PostgreSQLのバージョン
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password # ← これがデータベースのパスワードです！
+    ports:
+      - "5432:5432" # ← これがデータベースの「ドア」を開ける設定です
+
+# データを永続化するためのボリューム設定
+volumes:
+  postgres_data:

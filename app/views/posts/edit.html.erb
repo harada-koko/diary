@@ -1,0 +1,31 @@
+<!-- filepath: /home/harada_k/diary/app/views/posts/edit.html.erb -->
+<h1>投稿を編集</h1>
+
+<%= form_with(model: @post, local: true) do |form| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "エラー") %>が発生しました:</h2>
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :content, "内容" %><br>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="field">
+   <%= form.label :post_type, "種別" %>
+   <%= form.select :post_type, ["つぶやき", "日報"], { include_blank: "選択してください" } %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "更新する" %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', timeline_path %>

@@ -1,0 +1,15 @@
+<!-- filepath: /home/harada_k/diary/app/views/posts/update.html.erb -->
+<h1>投稿の編集が完了しました</h1>
+
+<p>新しい内容：</p>
+<div>
+  <strong>内容:</strong>
+  <p><%= @post.content %></p>
+</div>
+<div>
+  <strong>投稿タイプ:</strong>
+  <p><%= @post.post_type %></p>
+</div>
+
+<%= link_to '投稿詳細へ戻る', post_path(@post) %>
+<%= link_to 'タイムラインへ戻る', timeline_path %>

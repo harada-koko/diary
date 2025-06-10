@@ -1,14 +1,22 @@
 <h1>新しい投稿</h1>
 
 <%= form_with model: @post do |f| %>
-  <div>
+
+  <div class="field">
     <%= f.label :content, "内容" %>
     <%= f.text_area :content, rows: 5 %>
   </div>
 
+  <%# ↓ ここに「種別」の入力欄を追加しました %>
+  <div class="field">
+    <%= f.label :post_type, "種別" %>
+    <%= f.select :post_type, ["つぶやき", "日報"], { include_blank: "選択してください" } %>
+  </div>
+
   <br>
 
-  <div>
+  <div class="actions">
     <%= f.submit "投稿する" %>
   </div>
+
 <% end %>

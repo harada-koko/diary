@@ -19,18 +19,12 @@ class PostsController < ApplicationController
     end
   end
 
-  private
-
-  def post_params
-    params.require(:post).permit(:content, :post_type)
-  end
-
   def show
     @post = Post.find(params[:id])
   end
 
   def edit
-    @post = Post.find(params[:id])
+    @post = current_user.posts.find(params[:id])
   end
 
   def update
@@ -43,12 +37,15 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
-    if @post.destroy
-      redirect_to timeline_path, notice: "投稿が削除されました！"
-    else
-      redirect_to post_path(@post), alert: "投稿の削除に失敗しました。"
-    end
+    @post = current_user.posts.find(params[:id])
+    @post.destroy
+    redirect_to timeline_path, notice: '投稿を削除しました。', status: :see_other, status: :see_other
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:content, :post_type)
   end
 
 end
