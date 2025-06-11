@@ -4,6 +4,8 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.order(created_at: :desc)
+    @character=Character.order("RANDOM()").first
+
   end
 
   def new
@@ -13,7 +15,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to timeline_path, notice: "投稿が作成されました！"
+      redirect_to cheer_path, notice: "投稿が作成されました！"
     else
       render :new, status: :unprocessable_entity
     end

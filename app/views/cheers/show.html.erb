@@ -1,0 +1,26 @@
+<div style="text-align: center; padding: 40px;">
+
+  <h1>投稿ありがとう！</h1>
+  <p>あなたの頑張り、ちゃんと見てるよ！</p>
+
+  <hr style="margin: 30px 0;">
+
+  <% if @character.present? %>
+    <div>
+      <%= image_tag @character.image_url, alt: @character.name, width: 150 %>
+      <p style="font-size: 1.5em; font-weight: bold; margin-top: 10px;">
+        <%= @character.cheer_message %>
+      </p>
+      <p>- <%= @character.name %>より</p>
+    </div>
+  <% else %>
+    <p>応援キャラクターの準備中です！</p>
+  <% end %>
+
+  <hr style="margin: 30px 0;">
+
+  <p>
+    <%= link_to "タイムラインに戻る", timeline_path, style: "font-size: 1.2em;" %>
+  </p>
+
+</div>

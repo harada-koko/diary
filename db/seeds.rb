@@ -1,9 +1,21 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# db/seeds.rb
+
+puts "キャラクターの初期データを作成します..."
+
+# 既に同じ名前のキャラクターが存在する場合は作成しないように、find_or_create_by を使います
+Character.find_or_create_by!(name: "いぬ") do |character|
+  character.image_url = "inu.png"
+  character.cheer_message = "いつも頑張っててえらい！"
+end
+
+Character.find_or_create_by!(name: "ねこ") do |character|
+  character.image_url = "neko.png"
+  character.cheer_message = "その調子！ゆっくりいこうね。"
+end
+
+Character.find_or_create_by!(name: "うさぎ") do |character|
+  character.image_url = "usagi.png"
+  character.cheer_message = "すごい！今日も一日がんばろう！"
+end
+
+puts "キャラクターの初期データの作成が完了しました。"
