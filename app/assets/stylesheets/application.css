@@ -1,19 +1,206 @@
-body{
- background-color: #FFF0F5;
+/* Google Fontsから日本語フォントを読み込む */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+
+/* ===== 全体の基本設定 ===== */
+body {
+  font-family: 'Noto Sans JP', sans-serif; /* 読みやすい日本語フォント */
+  background-color: #FFF0F5; /* 薄いピンクの背景 */
+  color: #555; /* 柔らかい黒の文字色 */
+  margin: 0;
+  text-align: center; /* 全体を中央揃えにする */
 }
-.cute-pink-style {
-  text-align: center; 
-  color: #f0a6bf; 
+
+/* ===== リンクのスタイル ===== */
+a {
+  color: #f777a1; /* 濃いピンク */
+  text-decoration: none; /* 下線なし */
+}
+a:hover {
+  text-decoration: underline; /* ホバー時に下線 */
+}
+
+/* ===== 区切り線のスタイル ===== */
+hr {
+  border: none;
+  border-top: 1px solid #FADADD; /* ピンク系の区切り線 */
+}
+
+/* ===== 全体コンテナ ===== */
+.container {
+  max-width: 800px; /* 最大幅 */
+  margin: 0 auto; /* 中央寄せ */
+  padding: 20px; /* 内側余白 */
+  text-align: left; /* コンテナ内は左寄せに戻す */
+}
+
+/* ===== ヘッダー（ナビゲーションバー） ===== */
+header {
+  background-color: rgba(255, 255, 255, 0.8); /* 半透明の白 */
+  backdrop-filter: blur(10px); /* すりガラス効果 */
+  padding: 15px 30px; /* 上下左右余白 */
+  border-radius: 12px; /* 角丸 */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* 影 */
+  margin-bottom: 30px; /* 下余白 */
+  position: sticky; /* 上部固定 */
+  top: 20px;
+  z-index: 10;
+}
+header nav {
+  display: flex; /* 横並び */
+  justify-content: space-between; /* 両端揃え */
+  align-items: center; /* 縦中央揃え */
+}
+
+/* ===== 投稿カードのスタイル ===== */
+/* 投稿（.post）はカード風装飾を外す */
+.post {
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  text-align: left; /* 投稿内容は左寄せ */
+}
+
+/* 返信（.comments-section）はカード風のまま */
+.comments-section {
+  margin-top: 25px;
+  background-color: #fdfdff; /* わずかに色を変える */
   padding: 20px;
-  border-radius: 10px; 
-  margin-top: 20px; 
-  margin-bottom: 20px; 
+  border-radius: 8px;
+  border: 1px solid #eee;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left; /* 返信内容は左寄せ */
 }
 
-.cute-pink-style a {
-  color: #C71585;
+/* 投稿と投稿の間の区切り線 */
+.post + hr, .post-card + hr {
+  border: none;
+  border-top: 1px solid #e8e8e8;
+  margin: 0;
 }
 
-.cute-pink-style a:hover {
-  color: #AD1457;
+/* 投稿ヘッダー（投稿者・時間） */
+.post-header {
+  display: flex; /* 横並び */
+  justify-content: space-between; /* 両端揃え */
+  align-items: center; /* 縦中央揃え */
+  margin-bottom: 15px; /* 下余白 */
+  color: #888; /* 薄い文字色 */
+  font-size: 0.9em; /* 小さめ文字 */
+}
+.post-header strong {
+  font-size: 1.1em; /* 投稿者名を少し大きく */
+  color: #333;
+}
+.post-author {
+  font-weight: bold;
+  color: #333;
+}
+
+/* 投稿内容 */
+.post-content {
+  margin-bottom: 20px; /* 下余白 */
+  line-height: 1.7; /* 行間 */
+  font-size: 1.1em;
+}
+
+/* 投稿アクションボタン（いいね・編集・削除） */
+.post-actions, .post-actions-row {
+  display: flex;
+  justify-content: flex-end; /* 右寄せ */
+  align-items: center;
+  gap: 10px; /* ボタン間の隙間 */
+  margin-top: 15px;
+  font-size: 0.9em;
+}
+.like-buttons a,
+.edit-delete-actions a {
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  color: #555;
+  transition: background-color 0.2s;
+  font-size: 0.9em;
+}
+.like-buttons a:hover,
+.edit-delete-actions a:hover {
+  background-color: #f5f5f5;
+}
+.edit-delete-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ===== コメントエリア ===== */
+.comment {
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 0.95em;
+}
+.comment:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+.no-comments {
+  color: #888;
+  font-size: 0.9em;
+}
+.comment-form {
+  margin-top: 20px;
+}
+.comment-form textarea {
+  width: 100%;
+  min-height: 60px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 1em;
+  resize: none;
+  box-sizing: border-box;
+}
+
+/* ===== フォームのスタイル ===== */
+input[type="submit"], button {
+  background-color: #E91E63; /* ピンク */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+input[type="submit"]:hover, button:hover {
+  background-color: #C2185B; /* 濃いピンク */
+}
+textarea, input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+/* ===== キャラクター応援エリア ===== */
+.character-cheer {
+  background-color: #eddcff;
+  border: 1px solid #9872ff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.cheer-message {
+  font-size: 1.2em;
+  font-weight: bold;
 }

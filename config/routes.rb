@@ -1,6 +1,7 @@
 # config/routes.rb
 
 Rails.application.routes.draw do
+  get "comments/create"
   # 1. Devise (ユーザー認証) のルート
   # これが /users/sign_in や /users/sign_up などのURLを全て定義します
   devise_for :users
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
     # 投稿にネスト（入れ子に）する形で、「いいね」のルートを定義
     # これにより /posts/:post_id/likes というURLが作られます
     resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
   end
 
   # 5. Rails標準のヘルスチェック用ルート
