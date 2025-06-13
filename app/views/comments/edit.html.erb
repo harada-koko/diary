@@ -1,0 +1,30 @@
+<h1>コメントの編集</h1>
+
+<%# --- エラーメッセージ表示エリア --- %>
+<% if @comment.errors.any? %>
+  <div style="color: red;">
+    <h2><%= @comment.errors.count %>件のエラーがあります:</h2>
+    <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<%# --- 編集フォーム --- %>
+<%= form_with model: [@post, @comment], url: post_comment_path(@post, @comment), local: true, data: { turbo: false } do |f| %>
+  <div class="form-group" style="margin-bottom: 10px;">
+    <%= f.label :content, "コメント内容" %>
+    <%= f.text_area :content, rows: 4, class: "form-control" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit '更新する', class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<hr>
+
+<%= link_to "キャンセルして投稿に戻る", timeline_path %>

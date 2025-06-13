@@ -1,18 +1,16 @@
 <h1>タイムライン</h1>
 
-<%# --- キャラクター応援エリア (修正後) --- %>
+<%# --- キャラクター応援エリア --- %>
 <% if @character.present? %>
-  <%# ↓ style="..." を削除し、代わりに class="character-cheer" を指定 %>
   <div class="character-cheer">
     <h4><%= @character.name %>からの応援メッセージ</h4>
     <%= image_tag @character.image_url, alt: @character.name, width: 100 %>
-    <%# ↓ こちらのpタグにもクラス名をつけておく %>
     <p class="cheer-message"><%= @character.cheer_message %></p>
   </div>
 <% end %>
 
 
-<%# --- 2. 新規投稿リンク --- %>
+<%# --- 新規投稿リンク --- %>
 <p>
   <% if user_signed_in? %>
     <%= link_to "新しい投稿を作成する", new_post_path %>
@@ -21,7 +19,7 @@
 
 <hr>
 
-<%# --- 3. 投稿一覧エリア --- %>
+<%# --- 投稿一覧エリア --- %>
 <div class="posts-list">
   <% if @posts.any? %>
     <% @posts.each do |post| %>
@@ -53,20 +51,21 @@
                 <% if current_user.liked?(post) %>
                   <%# いいね済みの場合 → いいね解除ボタン %>
                   <% like = current_user.likes.find_by(post_id: post.id) %>
-                  <%= link_to "いいね解除(#{post.likes.count})", post_like_path(post, like), data: { turbo_method: :delete } %>
+                  <%= link_to "❤️ #{post.likes.count}", post_like_path(post, like), data: { turbo_method: :delete }, style: "color: #e25555; font-size: 1.2em;" %>
                 <% else %>
                   <%# まだいいねしていない場合 → いいねボタン %>
-                  <%= link_to "いいね！(#{post.likes.count})", post_likes_path(post), data: { turbo_method: :post } %>
+                  <%= link_to "🤍 #{post.likes.count}", post_likes_path(post), data: { turbo_method: :post }, style: "color: #aaa; font-size: 1.2em;" %>
                 <% end %>
               <% else %>
-                <span>いいね: <%= post.likes.count %></span>
+                <span style="font-size: 1.2em;">🤍 <%= post.likes.count %></span>
               <% end %>
+            </div>
           <% end %>
 
-          <%# 編集・削除ボタン %>
-           <% if post.user == current_user %>
-             <%= link_to '編集', edit_post_path(post) %>
-             <%= link_to '削除', post_path(post), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+          <%# "投稿"の編集・削除ボタン %>
+          <% if post.user == current_user %>
+            <%= link_to '編集', edit_post_path(post) %>
+            <%= link_to '削除', post_path(post), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
           <% end %>
         </div>
         
@@ -78,9 +77,22 @@
           <div class="comments-list" id="comments-for-post-<%= post.id %>">
             <% if post.comments.any? %>
               <% post.comments.each do |comment| %>
-                <div class="comment" style="font-size: 0.9em; margin-top: 5px;">
-                  <strong><%= comment.user.name %>:</strong>
-                  <span><%= comment.content %></span>
+                <div class="comment" style="font-size: 0.9em; margin-top: 5px; display: flex; align-items: center; gap: 10px;">
+                  
+                  <%# コメント内容 %>
+                  <div>
+                    <strong><%= comment.user.name %>:</strong>
+                    <span><%= comment.content %></span>
+                  </div>
+
+                  <%# "コメント"の編集・削除ボタン (正しい位置) %>
+                  <div class="comment-actions" style="font-size: 0.8em;">
+                    <% if comment.user == current_user %>
+                      <%= link_to '編集', edit_post_comment_path(post, comment) %>
+                      <%= link_to '削除', post_comment_path(post, comment), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+                    <% end %>
+                  </div>
+
                 </div>
               <% end %>
             <% else %>
@@ -91,13 +103,15 @@
           <%# コメント投稿フォーム %>
           <div class="comment-form" style="margin-top: 10px;">
             <% if user_signed_in? %>
-              <%= form_with model: [post, Comment.new] do |f| %>
+              <%= form_with model: [post, Comment.new], local: true do |f| %>
                 <%= f.text_area :content, rows: 2, placeholder: "コメントを追加..." %>
                 <%= f.submit "送信" %>
               <% end %>
             <% end %>
           </div>
         </div>
+
+        <%# ▼▼▼ もともとここにあったエラーの原因のブロックは削除しました ▼▼▼ %>
 
       </div>
       <hr>

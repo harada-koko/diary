@@ -19,3 +19,22 @@ Character.find_or_create_by!(name: "うさぎ") do |character|
 end
 
 puts "キャラクターの初期データの作成が完了しました。"
+
+puts "ユーザーの初期データを作成します..."
+
+User.find_or_create_by!(email: "user1@example.com") do |user|
+  user.password = "password"
+  user.name = "ユーザー1"
+end
+
+User.find_or_create_by!(email: "user2@example.com") do |user|
+  user.password = "password"
+  user.name = "ユーザー2"
+end
+
+User.find_or_create_by!(email: "user3@example.com") do |user|
+  user.password = "password"
+  user.name = "ユーザー3"
+end
+
+puts "ユーザーの初期データの作成が完了しました。"

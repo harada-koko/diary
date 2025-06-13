@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     # 投稿にネスト（入れ子に）する形で、「いいね」のルートを定義
     # これにより /posts/:post_id/likes というURLが作られます
     resources :likes, only: [:create, :destroy]
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy, :edit, :update] 
   end
 
   # 5. Rails標準のヘルスチェック用ルート
