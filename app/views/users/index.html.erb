@@ -1,0 +1,9 @@
+<!-- filepath: app/views/users/index.html.erb -->
+<h1>ユーザー一覧</h1>
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= link_to user.name, user_path(user) %>
+    </li>
+  <% end %>
+</ul>

@@ -1,8 +1,14 @@
 <div class="user-page-header">
   <h1><%= @user.name %>さんのページ</h1>
+  <!-- app/views/users/show.html.erb の適切な場所に追加 -->
+    <div class="user-profile">
+      <h2>自己紹介</h2>
+      <p><%= @user.bio.presence || "自己紹介はまだありません。" %></p>
+    </div>
   <% if @user == current_user %>
     <p><%= link_to "プロフィールを編集", edit_profile_path %></p>
   <% end %>
+  <%= link_to 'タイムラインへ戻る', timeline_path %>
 </div>
 
 <hr>
@@ -37,7 +43,4 @@
     <% end %>
   </div>
 
-</div>
 
-<hr>
-<%= link_to 'タイムラインへ戻る', timeline_path %>

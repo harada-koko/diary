@@ -9,11 +9,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%# このcontainerが、ページ全体を中央に配置するための「大外の箱」になります %>
-    <div class="container">
-
-      <header>
+  <header>
         <nav>
           <%# 左側のロゴやサイト名 %>
           <div>
@@ -26,14 +22,19 @@
               <span style="margin-right: 15px;">こんにちは、<%= current_user.name %>さん</span>
               <%= link_to "プロフィール編集", edit_profile_path %>
               <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, style: "margin-left: 15px;" %>
+              <%= link_to "ユーザー一覧", users_path %>
             <% else %>
               <%= link_to "ログイン", new_user_session_path, style: "margin-right: 15px;" %>
               <%= link_to "新規登録", new_user_registration_path %>
             <% end %>
           </div>
         </nav>
-      </header>
+  </header>
 
+  
+  <body>
+    <%# このcontainerが、ページ全体を中央に配置するための「大外の箱」になります %>
+    <div class="container">
       <%# メインコンテンツエリア %>
       <main>
         <%# フラッシュメッセージは、メッセージがある時だけ表示する %>

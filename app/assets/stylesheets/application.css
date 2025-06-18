@@ -21,7 +21,7 @@ a:hover {
 }
 
 h1, h2 {
-  color: #333;
+  color: #e9547d;
   text-align: center;
 }
 
@@ -30,16 +30,17 @@ h1, h2 {
   max-width: 720px;
   margin: 0 auto;
   padding: 20px;
+  text-align: center;
 }
 
 /* ===== 3. ヘッダー ===== */
 header {
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  padding: 15px 30px;
+  padding: 15px 5px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   position: sticky;
   top: 20px;
   z-index: 10;
@@ -49,8 +50,11 @@ header nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 15px;
+  gap: 30px;
 }
+
+header nav a {
+  margin-right: 24px;}
 
 /* ===== 4. 投稿ユニット全体 ===== */
 .post-unit {
@@ -170,7 +174,8 @@ header nav {
 }
 
 .form-wrapper input[type="email"],
-.form-wrapper input[type="password"] {
+.form-wrapper input[type="password"],
+.form-wrapper input[type="text"]{
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -193,3 +198,24 @@ header nav {
 .form-wrapper input[type="submit"]:hover {
     background-color: #d14269;
 }
+
+.home-image {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.home-content {
+  text-align: center;
+  padding: 20px;
+  color:#000000;
+}
+
+textarea {
+  width: 400px;   /* 長さ（幅）を調整。例: 400px */
+  height: 60px;   /* 厚さ（高さ）を調整。例: 60px */
+  width: 100%;
+  box-sizing: border-box;
+}
+

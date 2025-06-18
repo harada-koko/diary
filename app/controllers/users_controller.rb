@@ -7,4 +7,8 @@ class UsersController < ApplicationController
      @commented_posts = @user.comments.includes(:post).map(&:post).uniq
   end
 
+  def index
+    @users = User.all
+  end
+
 end

@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   end
 
    # 5. ユーザー関連のルート
-  resources :users, only: [:show] # ユーザー詳細ページ
+  resources :users, only: [:show,:index] # ユーザー詳細ページ
 
   resource :profile, only: [:edit, :update]
 

@@ -2,22 +2,17 @@
   <div class="home-content">
     <h1>オフィスのどうぶつ日誌へようこそ！</h1>
     <%= image_tag "inu.png", alt: "踊る犬のイラスト", class: "home-image" %>
-
     <p>ここは、日々の「報告」と「気軽なつぶやき」でチームをもっと元気に</p>
     <p>もっと楽しくするアプリです。</p>
     <p>投稿するたびに、かわいい動物たちがあなたの頑張りを褒めてくれますよ！</p>
-
-    <%# ↓↓↓ ここに、ログインしている場合のみ表示されるリンクを追加します ↓↓↓ %>
-    <% if user_signed_in? %>
-      <div class="go-to-timeline">
-        <strong><%= link_to "タイムラインへ", timeline_path, class: "btn-primary" %></strong>
-      </div>
+    <%= image_tag "animal_cookie.png", class: "home-image" %>
+    <%if user_signed_in? %>
+      <p>さあ、あなたの最初の投稿を作成してみましょう！</p>
+      <%= link_to "タイムラインへ", timeline_path, class: "btn btn-primary" %>
+    <% else %>
+      <p>まだアカウントをお持ちでないですか？</p>
+      <p>ぜひ、<%= link_to "新規登録", new_user_registration_path %>から登録してみてください！</p>
     <% end %>
-
-  </div>
-
-  <%# ↓↓↓ この「クッキーの箱」を .container の中に追加します ↓↓↓ %>
-  <div class="cookie-banner">
-      <%= image_tag "animal_cookie.png" %>
+    <p>すでにアカウントをお持ちの方は、<%= link_to "ログイン", new_user_session_path %>からログインしてください。</p>
   </div>
 </div>
