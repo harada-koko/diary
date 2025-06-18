@@ -1,0 +1,43 @@
+<div class="user-page-header">
+  <h1><%= @user.name %>さんのページ</h1>
+  <% if @user == current_user %>
+    <p><%= link_to "プロフィールを編集", edit_profile_path %></p>
+  <% end %>
+</div>
+
+<hr>
+
+<%# --- 二段組レイアウトの親コンテナ --- %>
+<div class="two-column-layout">
+
+  <%# --- 左カラム：投稿一覧 --- %>
+  <div class="column">
+    <h2>投稿一覧</h2>
+    <% if @posts.any? %>
+      <div class="posts-list">
+        <%= render @posts %>
+      </div>
+    <% else %>
+      <p>まだ投稿はありません。</p>
+    <% end %>
+  </div>
+
+  <%# --- 右カラム：いいねした投稿一覧 --- %>
+  <div class="column">
+    <h2>いいねした投稿一覧</h2>
+    <% if @liked_posts.any? %>
+      <% @liked_posts.each do |post| %>
+        <div class="liked-post-item">
+          <%= link_to post.content.truncate(30), post_path(post) %>
+          <p class="liked-post-author">by <%= post.user.name %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <p>まだ「いいね」した投稿はありません。</p>
+    <% end %>
+  </div>
+
+</div>
+
+<hr>
+<%= link_to 'タイムラインへ戻る', timeline_path %>

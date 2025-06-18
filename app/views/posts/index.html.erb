@@ -1,4 +1,9 @@
 <h1>タイムライン</h1>
+<div class="timeline-links">
+ <storng><%= link_to "すべて", timeline_path %></storng>
+ <storng><%= link_to "日報", timeline_path(type: '日報') %></storng>
+ <storng><%= link_to "つぶやき", timeline_path(type: 'つぶやき') %></storng>
+</div>
 
 <%# --- キャラクター応援エリア --- %>
 <% if @character.present? %>
@@ -9,114 +14,22 @@
   </div>
 <% end %>
 
+<hr>
 
-<%# --- 新規投稿リンク --- %>
 <p>
   <% if user_signed_in? %>
-    <%= link_to "新しい投稿を作成する", new_post_path %>
+    <strong><%= link_to "新しい投稿を作成する", new_post_path %></strong>
+    <div class="posts-list">
+   <% if @posts.any? %>
+      <%# render @posts で、@postsの要素を一つずつ_post.html.erbで描画してくれる %>
+      <%= render @posts %>
+    <% else %>
+      <p>まだ投稿がありません。最初の投稿をしてみましょう！</p>
+    <% end %>
+    </div>
   <% end %>
 </p>
 
 <hr>
 
 <%# --- 投稿一覧エリア --- %>
-<div class="posts-list">
-  <% if @posts.any? %>
-    <% @posts.each do |post| %>
-      <div class="post" style="margin-bottom: 40px;">
-
-        <%# 投稿ヘッダー (投稿者と時間) %>
-        <div class="post-header">
-          <p>
-            <strong><%= post.user.name %></strong>
-            <span style="color: #888; font-size: 0.9em;">
-              <%= time_ago_in_words(post.created_at) %>前
-            </span>
-          </p>
-        </div>
-
-        <%# 投稿内容 %>
-        <div class="post-content">
-          <p>
-            <%= simple_format(post.content) %>
-          </p>
-        </div>
-
-        <%# 投稿アクションボタン (いいね/編集/削除) %>
-        <div class="post-actions" style="display: flex; align-items: center; gap: 15px; margin-top: 10px;">
-          <%# いいね機能エリア (Turbo Frameで囲む) %>
-          <%= turbo_frame_tag "like_buttons_for_post_#{post.id}" do %>
-            <div class="like-buttons">
-              <% if user_signed_in? %>
-                <% if current_user.liked?(post) %>
-                  <%# いいね済みの場合 → いいね解除ボタン %>
-                  <% like = current_user.likes.find_by(post_id: post.id) %>
-                  <%= link_to "❤️ #{post.likes.count}", post_like_path(post, like), data: { turbo_method: :delete }, style: "color: #e25555; font-size: 1.2em;" %>
-                <% else %>
-                  <%# まだいいねしていない場合 → いいねボタン %>
-                  <%= link_to "🤍 #{post.likes.count}", post_likes_path(post), data: { turbo_method: :post }, style: "color: #aaa; font-size: 1.2em;" %>
-                <% end %>
-              <% else %>
-                <span style="font-size: 1.2em;">🤍 <%= post.likes.count %></span>
-              <% end %>
-            </div>
-          <% end %>
-
-          <%# "投稿"の編集・削除ボタン %>
-          <% if post.user == current_user %>
-            <%= link_to '編集', edit_post_path(post) %>
-            <%= link_to '削除', post_path(post), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
-          <% end %>
-        </div>
-        
-        <%# コメント機能エリア %>
-        <div class="comments-section" style="margin-top: 15px; padding-left: 20px; border-left: 3px solid #eee;">
-          <strong>コメント</strong>
-          
-          <%# コメント一覧 %>
-          <div class="comments-list" id="comments-for-post-<%= post.id %>">
-            <% if post.comments.any? %>
-              <% post.comments.each do |comment| %>
-                <div class="comment" style="font-size: 0.9em; margin-top: 5px; display: flex; align-items: center; gap: 10px;">
-                  
-                  <%# コメント内容 %>
-                  <div>
-                    <strong><%= comment.user.name %>:</strong>
-                    <span><%= comment.content %></span>
-                  </div>
-
-                  <%# "コメント"の編集・削除ボタン (正しい位置) %>
-                  <div class="comment-actions" style="font-size: 0.8em;">
-                    <% if comment.user == current_user %>
-                      <%= link_to '編集', edit_post_comment_path(post, comment) %>
-                      <%= link_to '削除', post_comment_path(post, comment), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
-                    <% end %>
-                  </div>
-
-                </div>
-              <% end %>
-            <% else %>
-              <p class="no-comments" style="font-size: 0.9em; color: #888;">まだコメントはありません。</p>
-            <% end %>
-          </div>
-          
-          <%# コメント投稿フォーム %>
-          <div class="comment-form" style="margin-top: 10px;">
-            <% if user_signed_in? %>
-              <%= form_with model: [post, Comment.new], local: true do |f| %>
-                <%= f.text_area :content, rows: 2, placeholder: "コメントを追加..." %>
-                <%= f.submit "送信" %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-
-        <%# ▼▼▼ もともとここにあったエラーの原因のブロックは削除しました ▼▼▼ %>
-
-      </div>
-      <hr>
-    <% end %>
-  <% else %>
-    <p>まだ投稿がありません。最初の投稿をしてみましょう！</p>
-  <% end %>
-</div>

@@ -1,0 +1,44 @@
+<div class="post-unit">
+
+  <%# 投稿本体のエリア %>
+  <div class="post-main-content">
+    <div class="post-header">
+      <span class="post-author"><%= link_to post.user.name, user_path(post.user) %></span>
+      <span class="post-timestamp"><%= time_ago_in_words(post.created_at) %>前</span>
+    </div>
+    <div class="post-content">
+      <%= simple_format(post.content) %>
+    </div>
+    <div class="post-actions-row">
+      <div class="like-buttons">
+        <%= render 'like/like_buttons', post: post %>
+      </div>
+      <div class="edit-delete-actions">
+        <% if post.user == current_user %>
+          <%= link_to '編集', edit_post_path(post) %>
+          <%= link_to '削除', post_path(post), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%# コメントエリア %>
+  <div class="comments-section">
+    <strong>コメント</strong>
+    <div class="comments-list" id="comments-for-post-<%= post.id %>">
+      <% if post.comments.any? %>
+        <%= render post.comments %>
+      <% else %>
+        <p class="no-comments">まだコメントはありません。</p>
+      <% end %>
+    </div>
+    <div class="comment-form">
+      <% if user_signed_in? %>
+        <%= form_with model: [post, Comment.new] do |f| %>
+          <%= f.text_area :content, rows: 2, placeholder: "コメントを追加..." %>
+          <%= f.submit "送信" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

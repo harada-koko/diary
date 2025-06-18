@@ -1,10 +1,23 @@
 <div class="container">
-    <div class="cute-pink-style">
-        <h1>オフィスのどうぶつ日誌へようこそ！</h1>
-        <p>ここは、日々の「報告」と「気軽なつぶやき」でチームをもっと元気に、もっと楽しくするアプリです。</p>
-        <p>投稿するたびに、かわいい動物たちがあなたの頑張りを褒めてくれますよ！</p>
-        <% # 将来的にはここにログインフォームやログインページへのリンクを置きます %>
-        <%= link_to "このアプリについて", about_path, class: "btn btn-secondary" %>
-    </div>
+  <div class="home-content">
+    <h1>オフィスのどうぶつ日誌へようこそ！</h1>
+    <%= image_tag "inu.png", alt: "踊る犬のイラスト", class: "home-image" %>
 
+    <p>ここは、日々の「報告」と「気軽なつぶやき」でチームをもっと元気に</p>
+    <p>もっと楽しくするアプリです。</p>
+    <p>投稿するたびに、かわいい動物たちがあなたの頑張りを褒めてくれますよ！</p>
+
+    <%# ↓↓↓ ここに、ログインしている場合のみ表示されるリンクを追加します ↓↓↓ %>
+    <% if user_signed_in? %>
+      <div class="go-to-timeline">
+        <strong><%= link_to "タイムラインへ", timeline_path, class: "btn-primary" %></strong>
+      </div>
+    <% end %>
+
+  </div>
+
+  <%# ↓↓↓ この「クッキーの箱」を .container の中に追加します ↓↓↓ %>
+  <div class="cookie-banner">
+      <%= image_tag "animal_cookie.png" %>
+  </div>
 </div>

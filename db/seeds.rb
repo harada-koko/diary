@@ -18,6 +18,17 @@ Character.find_or_create_by!(name: "うさぎ") do |character|
   character.cheer_message = "すごい！今日も一日がんばろう！"
 end
 
+Character.find_or_create_by!(name: "ぶた") do |character|
+  character.image_url = "pig.png"
+  character.cheer_message = "ちゃんと記録してえらいね！"
+end
+
+Character.find_or_create_by!(name: "ぺんぎん ") do |character|
+  character.image_url = "pen.png"
+  character.cheer_message = "すごい！なんでもできるね！"
+end
+
+
 puts "キャラクターの初期データの作成が完了しました。"
 
 puts "ユーザーの初期データを作成します..."

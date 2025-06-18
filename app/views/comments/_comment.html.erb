@@ -1,0 +1,32 @@
+<div class="comment">
+  <div>
+<%# 1つのコメントを表示するための部品（パーシャル） %>
+<%# turbo_frame_tag を使うと、将来コメントの編集や削除を非同期で行う際に便利です %>
+<%= turbo_frame_tag comment do %>
+  <div class="comment">
+
+    <%# コメントヘッダー（投稿者名と時間） %>
+    <div class="comment-header">
+      <strong class="comment-author">
+        <%= link_to comment.user.name, user_path(comment.user) %>
+      </strong>
+      <span class="comment-timestamp">
+        <%= time_ago_in_words(comment.created_at) %>前
+      </span>
+    </div>
+
+    <%# コメント本文 %>
+    <div class="comment-body">
+      <%= simple_format(comment.content) %>
+    </div>
+
+    <%# コメントアクション（編集・削除など） %>
+    <div class="comment-actions">
+      <% if comment.user == current_user %>
+        <%#= link_to '編集', edit_post_comment_path(post, comment) %>
+        <%#= link_to '削除', post_comment_path(post, comment), data: { turbo_method: :delete } %>
+      <% end %>
+    </div>
+
+  </div>
+<% end %>

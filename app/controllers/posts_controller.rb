@@ -3,9 +3,16 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @posts = Post.all.order(created_at: :desc)
-    @character=Character.order("RANDOM()").first
+    if params[:type].present?
+       # もしURLにtypeパラメータが存在したら、その種類で投稿を絞り込む
+      @posts = Post.where(post_type: params[:type]).order(created_at: :desc)
+    else
+      # パラメータがなければ、全ての投稿を対象にする
+      @posts = Post.all.order(created_at: :desc)
+    end
 
+    @character=Character.order("RANDOM()").first
+    @liked_posts = current_user.likes.includes(:post).map(&:post)
   end
 
   def new

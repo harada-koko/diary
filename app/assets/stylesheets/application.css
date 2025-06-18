@@ -1,206 +1,195 @@
-/* Google Fontsから日本語フォントを読み込む */
+/* Google Fontsから、日本語がきれいで読みやすいNoto Sans JPを読み込む */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
 
-/* ===== 全体の基本設定 ===== */
+/* ===== 1. 基本設定 ===== */
 body {
-  font-family: 'Noto Sans JP', sans-serif; /* 読みやすい日本語フォント */
-  background-color: #FFF0F5; /* 薄いピンクの背景 */
-  color: #555; /* 柔らかい黒の文字色 */
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #fdf6f8;
+  color: #4a4a4a;
   margin: 0;
-  text-align: center; /* 全体を中央揃えにする */
+  line-height: 1.7;
 }
 
-/* ===== リンクのスタイル ===== */
 a {
-  color: #f777a1; /* 濃いピンク */
-  text-decoration: none; /* 下線なし */
+  color: #e9547d;
+  text-decoration: none;
+  transition: color 0.2s;
 }
+
 a:hover {
-  text-decoration: underline; /* ホバー時に下線 */
+  color: #d14269;
 }
 
-/* ===== 区切り線のスタイル ===== */
-hr {
-  border: none;
-  border-top: 1px solid #FADADD; /* ピンク系の区切り線 */
+h1, h2 {
+  color: #333;
+  text-align: center;
 }
 
-/* ===== 全体コンテナ ===== */
+/* ===== 2. レイアウト ===== */
 .container {
-  max-width: 800px; /* 最大幅 */
-  margin: 0 auto; /* 中央寄せ */
-  padding: 20px; /* 内側余白 */
-  text-align: left; /* コンテナ内は左寄せに戻す */
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* ===== ヘッダー（ナビゲーションバー） ===== */
+/* ===== 3. ヘッダー ===== */
 header {
-  background-color: rgba(255, 255, 255, 0.8); /* 半透明の白 */
-  backdrop-filter: blur(10px); /* すりガラス効果 */
-  padding: 15px 30px; /* 上下左右余白 */
-  border-radius: 12px; /* 角丸 */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* 影 */
-  margin-bottom: 30px; /* 下余白 */
-  position: sticky; /* 上部固定 */
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 15px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  position: sticky;
   top: 20px;
   z-index: 10;
 }
+
 header nav {
-  display: flex; /* 横並び */
-  justify-content: space-between; /* 両端揃え */
-  align-items: center; /* 縦中央揃え */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
 }
 
-/* ===== 投稿カードのスタイル ===== */
-/* 投稿（.post）はカード風装飾を外す */
-.post {
-  width: 100%;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 40px;
-  background: none;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 0;
-  text-align: left; /* 投稿内容は左寄せ */
+/* ===== 4. 投稿ユニット全体 ===== */
+.post-unit {
+  background-color: white;
+  border: 1px solid #f0e4e8;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
 }
 
-/* 返信（.comments-section）はカード風のまま */
-.comments-section {
-  margin-top: 25px;
-  background-color: #fdfdff; /* わずかに色を変える */
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid #eee;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left; /* 返信内容は左寄せ */
+.post-main-content {
+  padding: 25px 30px;
 }
 
-/* 投稿と投稿の間の区切り線 */
-.post + hr, .post-card + hr {
-  border: none;
-  border-top: 1px solid #e8e8e8;
-  margin: 0;
-}
-
-/* 投稿ヘッダー（投稿者・時間） */
 .post-header {
-  display: flex; /* 横並び */
-  justify-content: space-between; /* 両端揃え */
-  align-items: center; /* 縦中央揃え */
-  margin-bottom: 15px; /* 下余白 */
-  color: #888; /* 薄い文字色 */
-  font-size: 0.9em; /* 小さめ文字 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 0.9em;
 }
-.post-header strong {
-  font-size: 1.1em; /* 投稿者名を少し大きく */
-  color: #333;
-}
-.post-author {
+
+.post-author a {
   font-weight: bold;
   color: #333;
 }
+.post-timestamp { color: #aaa; }
+.post-content { margin: 20px 0; font-size: 1.1em; color: #333; }
 
-/* 投稿内容 */
-.post-content {
-  margin-bottom: 20px; /* 下余白 */
-  line-height: 1.7; /* 行間 */
-  font-size: 1.1em;
-}
-
-/* 投稿アクションボタン（いいね・編集・削除） */
-.post-actions, .post-actions-row {
+.post-actions-row {
   display: flex;
-  justify-content: flex-end; /* 右寄せ */
+  justify-content: space-between;
   align-items: center;
-  gap: 10px; /* ボタン間の隙間 */
-  margin-top: 15px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #f5f5f5;
   font-size: 0.9em;
 }
-.like-buttons a,
-.edit-delete-actions a {
+
+.like-buttons a, .edit-delete-actions a {
   text-decoration: none;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 20px;
   border: 1px solid #ddd;
   color: #555;
   transition: background-color 0.2s;
-  font-size: 0.9em;
 }
-.like-buttons a:hover,
-.edit-delete-actions a:hover {
-  background-color: #f5f5f5;
+.edit-delete-actions { display: flex; gap: 10px; }
+.like-buttons a:hover, .edit-delete-actions a:hover { background-color: #f5f5f5; }
+
+/* ===== 5. コメントエリア ===== */
+.comments-section {
+  padding: 20px 30px;
+  border-top: 1px solid #f0f0f0;
+  background-color: #fafcff;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
-.edit-delete-actions {
-  display: flex;
-  gap: 10px;
+/* ...その他のスタイル... */
+/* ===== ユーザー詳細ページの二段組レイアウト ===== */
+.two-column-layout {
+  display: flex;         /* ★中の要素を横並びにする魔法 */
+  gap: 30px;             /* カラムとカラムの間の隙間 */
+  align-items: flex-start; /* カラムの高さが違っても、上端を揃える */
 }
 
-/* ===== コメントエリア ===== */
-.comment {
-  padding-bottom: 8px;
-  margin-bottom: 8px;
-  border-bottom: 1px solid #f5f5f5;
-  font-size: 0.95em;
-}
-.comment:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-.no-comments {
-  color: #888;
-  font-size: 0.9em;
-}
-.comment-form {
-  margin-top: 20px;
-}
-.comment-form textarea {
-  width: 100%;
-  min-height: 60px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  font-family: inherit;
-  font-size: 1em;
-  resize: none;
-  box-sizing: border-box;
+.two-column-layout .column {
+  flex: 1; /* ★利用可能なスペースを均等に分け合い、同じ幅にする魔法 */
+  min-width: 0; /* flexアイテムが縮みすぎるのを防ぐおまじない */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 24px;
 }
 
-/* ===== フォームのスタイル ===== */
-input[type="submit"], button {
-  background-color: #E91E63; /* ピンク */
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-}
-input[type="submit"]:hover, button:hover {
-  background-color: #C2185B; /* 濃いピンク */
-}
-textarea, input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-}
-
-/* ===== キャラクター応援エリア ===== */
-.character-cheer {
-  background-color: #eddcff;
-  border: 1px solid #9872ff;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 40px;
+.user-page-header {
   text-align: center;
+  margin-bottom: 20px;
 }
-.cheer-message {
-  font-size: 1.2em;
-  font-weight: bold;
+
+.liked-post-item {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 10px 0;
+}
+.liked-post-item:last-child {
+  border-bottom: none;
+}
+.liked-post-author {
+  text-align: right;
+  font-size: 0.8em;
+  color: #888;
+  margin: 5px 0 0 0;
+}
+
+/* ===== 6. フォーム関連（新規追加）===== */
+.form-wrapper {
+  max-width: 420px; /* フォームに適した幅に調整 */
+  margin: 60px auto;  /* 上下の余白を増やし、左右を中央揃えに */
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center; /* 中のテキストやボタンも中央にしたい場合 */
+}
+
+.form-wrapper h2 {
+  margin-bottom: 30px;
+}
+
+.form-wrapper .field {
+  margin-bottom: 20px;
+  text-align: left; /* ラベルや入力欄は左揃えに戻す */
+}
+
+.form-wrapper .actions {
+  margin-top: 30px;
+}
+
+.form-wrapper input[type="email"],
+.form-wrapper input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.form-wrapper input[type="submit"] {
+    background-color: #e9547d;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.form-wrapper input[type="submit"]:hover {
+    background-color: #d14269;
 }

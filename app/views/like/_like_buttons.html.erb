@@ -1,0 +1,14 @@
+<div class="like-buttons">
+  <% if user_signed_in? %>
+    <% if current_user.liked?(post) %>
+      <%# いいね済みの場合 → いいね解除ボタン %>
+      <% like = current_user.likes.find_by(post_id: post.id) %>
+      <%= link_to "❤️ #{post.likes.count}", post_like_path(post, like), data: { turbo_method: :delete } %>
+    <% else %>
+      <%# まだいいねしていない場合 → いいねボタン %>
+      <%= link_to "🤍 #{post.likes.count}", post_likes_path(post), data: { turbo_method: :post } %>
+    <% end %>
+  <% else %>
+    <span>🤍 <%= post.likes.count %></span>
+  <% end %>
+</div>
